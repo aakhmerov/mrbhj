@@ -1,0 +1,171 @@
+.verticalCenter35Child {
+    position: absolute;
+    top: 35%;
+}
+
+.verticalCenterContainer {
+    position: relative;
+}
+
+
+.itemsList {
+    height: 70%;
+    overflow: auto;
+}
+
+#items .ui-selecting {
+    background: none repeat scroll 0 0 #049CDB;
+}
+
+#items .ui-selected {
+    background: none repeat scroll 0 0 #0075DE;
+    color: white;
+}
+
+#items {
+    list-style-type: none;
+    margin: -15px 0 0;
+    padding: 0;
+    width: 100%;
+}
+
+#grouped-items {
+    list-style-type: none;
+    margin: -25px 0 0;
+    padding: 0;
+    width: 100%;
+}
+
+#items li, #items li a, #grouped-items li, #grouped-items li a {
+    cursor: pointer;
+    font-size: 1.1em;
+    height: 18px;
+    margin: 3px;
+    padding: 0.1em;
+    color: #505050;
+    text-decoration: none;
+}
+
+#items li:hover {
+    background: none repeat scroll 0 0 #DDDDDD;
+    cursor: pointer;
+}
+
+.alert {
+    height: 200px;
+    position: absolute;
+    top: 50%;
+    width: 500px;
+}
+
+.filter {
+    margin-bottom: -10px;
+}
+
+#filter {
+    height: 25px;
+}
+
+select,textarea,input[type="text"],input[type="password"],input[type="datetime"],input[type="datetime-local"],input[type="date"],input[type="month"],input[type="time"],input[type="week"],input[type="number"],input[type="email"],input[type="url"],input[type="search"],input[type="tel"],input[type="color"],.uneditable-input {
+    height: 25px;
+}
+
+.btn.filterbutton {
+    margin-bottom: 15px;
+    /*margin-left: 15px;*/
+}
+
+.services-row {
+    background-color: #F5F5F5;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
+    margin-bottom: 1px;
+    padding: 10px;
+}
+
+.services-row:hover {
+    cursor: pointer;
+}
+
+.leaf-services-row {
+    background-color: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
+    margin-bottom: 1px;
+    margin-left: 60px;
+    padding: 10px;
+    width: 858px;
+}
+
+.leaf-services-row:after {
+    clear: both;
+}
+
+.leaf-services-row, .row:after {
+    content: "";
+    display: table;
+}
+
+.control-label-no-width {
+    float: left;
+    padding-top: 5px;
+    text-align: left;
+    width: 140px;
+}
+
+#projects-list {
+    background-color: #FAFAFA;
+    height: 91%;
+    margin-left: 700px;
+    padding: 5px;
+    position: absolute;
+}
+
+.remove-label, .add-label {
+    display: block;
+    padding: 8px 15px;
+}
+
+.failed-service{
+    background:#FFEBEB;
+}
+
+.hidden{
+    display: none;
+}
+
+.vertical-divider {
+    background-color: #E5E5E5;
+    border-left: 1px solid #FFFFFF;
+    border-right: 1px solid #FFFFFF;
+    min-height: 20px;
+    width: 2px;
+    margin: 9px 1px;
+    overflow: hidden;
+}
+
+.service-group{
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-left: -10px;
+    display: block;
+    padding-top: 10px;
+}
+
+.innerTable {
+    width: 100%;
+    border-color: white;
+    margin: -8px;
+}
+
+table.innerTable tr, td {
+    border-width: 0px;
+}
+
+.disabled a {
+    color: #999999;
+}
+
+
