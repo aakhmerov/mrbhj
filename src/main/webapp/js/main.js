@@ -8,7 +8,9 @@ require.config({
         backbone: 'libs/backbone/backbone-min',
         handlebars: 'libs/handlebars/handlebars',
         templates: '../templates',
-        text: 'libs/require/text'
+        text: 'libs/require/text',
+
+        EmptyContent : 'views/layout/EmptyContent'
 
     },
     shim: {

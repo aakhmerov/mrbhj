@@ -18,26 +18,48 @@ define([
 
             // Default
             '*actions': 'defaultAction'
+        },
+
+        initialize : function () {
+            _.bindAll(this,'showDefault','defaultAction','showPage','removeCurrentView','setView');
+        },
+
+        showPage : function (MainView,HeaderView,FooterView) {
+            this.removeCurrentView();
+            var pageContainer = $('<div></div>').attr({id : 'page'})
+            $('body').append(pageContainer);
+            this.showParams.mainContent = MainView;
+            this.showParams.headerContent = HeaderView;
+            var page = new PageLayoutView(this.showParams);
+            page.render();
+            this.setView(page);
+        },
+
+        removeCurrentView : function () {
+            if (!_.isEmpty(this.view)) {
+                this.view.undelegateEvents();
+                this.view.remove();
+            }
+            this.view = null;
+        },
+
+        setView : function (view) {
+            this.view = view;
+        },
+
+
+
+        showDefault : function () {
+            this.showParams = {
+                el:'#page'
+            };
+            require(['EmptyContent'],this.showPage);
         }
     });
 
     var initialize = function(){
 
         var app_router = new AppRouter;
-
-        app_router.on('route:showDefault', function () {
-            // Call render on the module with default layout options
-            var defaultPage = new PageLayoutView({
-                //element which will get all html produced during layout rendering
-                el: '#page'
-            });
-            //invoke actual rendering
-            defaultPage.render();
-        });
-
-        app_router.on('route:defaultAction', function (actions) {
-            //nothing to do here, just page action invoked
-        });
 
         Backbone.history.start();
     };
