@@ -9,35 +9,85 @@
 
     <name>A Jasmine with Backbone and Require Project</name>
 
+    <properties>
+        <web.sources>src/main/webapp</web.sources>
+        <jasmine-maven-plugin.version>1.3.1.1</jasmine-maven-plugin.version>
+        <jasmine.keep.alvie>false</jasmine.keep.alvie>
+    </properties>
+
+    <profiles>
+        <profile>
+            <id>sonar</id>
+            <properties>
+                <jasmine.keep.alvie>true</jasmine.keep.alvie>
+            </properties>
+            <build>
+                <plugins>
+                    <!--grab test coverage information-->
+                    <plugin>
+                        <groupId>com.github.timurstrekalov</groupId>
+                        <artifactId>saga-maven-plugin</artifactId>
+                        <version>1.4.2-DERVISH-SNAPSHOT</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>coverage</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <reporterConfig>
+                                <outputStrategy>TOTAL</outputStrategy>
+                                <rawName>jsTestDriver.conf</rawName>
+                                <relativePathBase>src/main/webapp/</relativePathBase>
+                                <baseUri>http://localhost:${jasmine.serverPort}</baseUri>
+                                <outputDir>${project.build.directory}/jstestdriver</outputDir>
+                            </reporterConfig>
+                            <noInstrumentPatterns>
+                                <pattern>.*/stories/.*</pattern> <!-- Don't instrument specs -->
+                                <pattern>.*/data/.*</pattern> <!-- Don't instrument data -->
+                                <pattern>.*/libs/.*</pattern> <!-- Don't instrument libs -->
+                            </noInstrumentPatterns>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
     <build>
+        <sourceDirectory>${web.sources}</sourceDirectory>
+        <testSourceDirectory>src/test/js</testSourceDirectory>
         <plugins>
             <!--set up jasmine plugin-->
             <plugin>
                 <groupId>com.github.searls</groupId>
                 <artifactId>jasmine-maven-plugin</artifactId>
-                <version>1.2.0.0</version>
-                <extensions>true</extensions>
+                <version>1.3.1.1</version>
                 <executions>
                     <execution>
                         <goals>
                             <goal>test</goal>
                         </goals>
+                        <configuration>
+                            <keepServerAlive>${jasmine.keep.alvie}</keepServerAlive>
+                        </configuration>
                     </execution>
                 </executions>
                 <configuration>
-                    <jsSrcDir>${project.basedir}/src/main/webapp/js</jsSrcDir>
                     <jsTestSrcDir>${project.basedir}/src/test/js</jsTestSrcDir>
-                    <browserVersion>FIREFOX_3</browserVersion>
-                    <!--use require js in specs-->
+                    <jsSrcDir>${project.basedir}/src/main/webapp</jsSrcDir>
+                    <srcDirectoryName>src/main/webapp/js</srcDirectoryName>
+                    <specDirectoryName>src/test/js</specDirectoryName>
                     <specRunnerTemplate>REQUIRE_JS</specRunnerTemplate>
-
                     <preloadSources>
-                        <source>libs/jasmine/jasmine-jquery-1.3.1.js</source>
+                        <source>js/libs/require/require.js</source>
+                        <source>testMain.js</source>
+                        <source>js/libs/jasmine/jasmine-html.js</source>
                     </preloadSources>
-                    <!--customize path to require.js-->
-                    <scriptLoaderPath>libs/require/require.js</scriptLoaderPath>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
@@ -46,12 +96,11 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-            <!--Workaround to enable appropriate html templates copying to jasmine folders-->
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>copy-js-files</id>
+                        <id>copy-js-resources</id>
                         <phase>generate-test-resources</phase>
                         <goals>
                             <goal>copy-resources</goal>
@@ -60,7 +109,7 @@
                             <outputDirectory>${project.build.directory}/jasmine</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>src/main/webapp</directory>
+                                    <directory>src/test/resources</directory>
                                     <filtering>false</filtering>
                                 </resource>
                             </resources>
@@ -70,4 +119,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>
